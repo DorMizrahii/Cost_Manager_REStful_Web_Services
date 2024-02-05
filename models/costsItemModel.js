@@ -9,25 +9,25 @@ const costItemSchema = new mongoose.Schema({
 
   year: {
     type: Number,
-    require: [true, "Cost item must include a year!"],
+    required: [true, "Cost item must include a year!"],
   },
 
   month: {
     type: String,
-    require: [true, "Cost item must include a month!"],
+    required: [true, "Cost item must include a month!"],
   },
 
   day: {
     type: Number,
-    require: [true, "Cost item must include a day!"],
+    required: [true, "Cost item must include a day!"],
   },
   id: {
-    type: mongoose.Schema.ObjectId,
+    type: Number,
   },
 
   description: {
     type: String,
-    require: [true, "Cost item must include a description!"],
+    required: [true, "Cost item must include a description!"],
   },
 
   category: {
@@ -42,9 +42,9 @@ const costItemSchema = new mongoose.Schema({
   },
   sum: {
     type: Number,
-    require: [true, "Cost item must include a sum!"],
+    required: [true, "Cost item must include a sum!"],
   },
 });
 
-const CostItem = mongoose.model("CostItem", costItemSchema);
+const CostItem = mongoose.model("Costs", costItemSchema);
 module.exports = CostItem;

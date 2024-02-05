@@ -1,11 +1,10 @@
 const CostItem = require("../models/costsItemModel");
 const User = require("../models/userModel");
+const Categories = require("../const");
 
 exports.addCostItem = async (req, res) => {
   try {
-    console.log(req.body.userId);
-    const userExist = await User.findOne({ _id: req.body.userId });
-    console.log(userExist);
+    const userExist = await User.findOne({id:req.body.userId});
 
     if (!userExist) {
       return res.status(404).send({
@@ -32,28 +31,20 @@ exports.addCostItem = async (req, res) => {
 exports.getReport = async (req, res) => {
   try {
     const { userId, year, month } = req.query;
+    // Ensure the query matches the fields in your database. If your CostItem model uses user_id instead of userId, adjust accordingly.
     const costs = await CostItem.find({ userId, year, month });
-    const reports = costs.reduce((acc, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = [];
-      }
-      acc[item.category] = acc[item.category].push({
-        day: item.day,
-        description: item.description,
-        sum: item.sum,
-      });
-
+    const reports = Categories.reduce((acc, category) => {
+      acc[category] = costs.filter(cost => cost.category === category ).map(({day,description,sum})=>({day,description,sum}));
       return acc;
-    }, {});
-
+    },{})
     res.status(201).send({
       message: "Report successfully fetched",
-      data: reports, // Assuming you want to return the created item to the client
+      data: reports,
     });
   } catch (error) {
     res.status(400).send({
       message: "Report failed",
-      error: error, // TO CHANGE LATER
+      error: error.message,
     });
   }
 };

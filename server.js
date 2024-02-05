@@ -24,14 +24,10 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 );
 
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("DB connection successful!");
-  });
+mongoose.connect(DB, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected successfully.'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
 
 app.use("/api", costsRoutes);
 

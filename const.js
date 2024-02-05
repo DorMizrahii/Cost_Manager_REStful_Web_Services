@@ -1,4 +1,4 @@
-const validCategories = [
+const Categories = [
   "Food",
   "Health",
   "Housing",
@@ -8,4 +8,4 @@ const validCategories = [
   "Other",
 ];
 
-module.exports = validCategories;
+module.exports = Categories;

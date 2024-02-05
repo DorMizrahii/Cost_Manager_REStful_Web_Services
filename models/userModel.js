@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    required: [true, "User property must include lastName name!"],
+    required: [true, "User property must include last name!"],
   },
   birthday: {
     type: String,
@@ -19,5 +19,5 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("Users", userSchema);
 module.exports = User;
